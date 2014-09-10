@@ -1,6 +1,8 @@
 /*global console*/
-var yetify = require('yetify'),
-    config = require('getconfig'),
+
+process.env.NODE_ENV = 'production'; // set env
+
+var config = require('getconfig'),
     uuid = require('node-uuid'),
     crypto = require('crypto'),
     port = parseInt(process.env.PORT || config.server.port, 10),
