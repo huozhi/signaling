@@ -6,8 +6,12 @@ var config = require('getconfig'),
     uuid = require('node-uuid'),
     crypto = require('crypto'),
     port = parseInt(process.env.PORT || config.server.port, 10),
+    fs = require('fs'),
+    privateKey = fs.readFileSync('sslcert/privatekey.pem').toString(),
+    certificate = fs.readFileSync('sslcert/certificate.pem').toString(),
+    cacert = fs.readFileSync('sslcert/cacert.pem').toString(),
     // port = 8888,
-    io = require('socket.io').listen(port, { log: false });
+    io = require('socket.io').listen(port, { key:privateKey,cert:certificate,ca:cacert });
 
 // if (config.logLevel) {
 //     // https://github.com/Automattic/socket.io/wiki/Configuring-Socket.IO
