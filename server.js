@@ -52,6 +52,7 @@ io.sockets.on('connection', function (client) {
         if (!otherClient) return;
 
         details.from = client.id;
+        console.log('details.username',details.username);
         otherClient.emit('message', details);
     });
 
