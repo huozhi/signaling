@@ -115,20 +115,32 @@ io.sockets.on('connection', function (client) {
         }
     });
 
+    /* =================== new events ======================== */
     /* deal with sketch point data */
     client.on('sendStroke', function (point) {
-        // console.log('id', client.id, 'room', client.room);
-        // client.broadcast.to(client.roomId).emit('syncStroke', point);
-        var clientsList = io.sockets.clients(client.room);
-        clientsList.forEach(function (other) {
-            if (other.id != client.id) {
-                // console.log('from',client.id,'to',other.id);
-                console.log('emit syncStroke event');
-                other.emit('syncStroke', point);
-            }
-        });
+        client.broadcast.to(client.roomId).emit('syncStroke', point);
+        // var clientsList = io.sockets.clients(client.room);
+        // clientsList.forEach(function (other) {
+        //     if (other.id != client.id) {
+        //         // console.log('from',client.id,'to',other.id);
+        //         console.log('emit syncStroke event');
+        //         other.emit('syncStroke', point);
+        //     }
+        // });
 
     });
+
+    client.on('signalSyncChart', function (chartData) {
+        console.log('client.on signalSyncChart');
+        client.broadcast.to(client.roomId).emit('syncChart', chartData);
+    });
+
+    client.on('signalSyncImpress', function (impressData) {
+        client.broadcast.to(client.roomId).emit('syncImpress', impressData);
+    });
+
+    /* ========================== end new events ======================= */
+
 
     // tell client about stun and turn servers and generate nonces
     client.emit('stunservers', config.stunservers || []);

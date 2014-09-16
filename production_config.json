@@ -1,5 +1,5 @@
 {
-    "isDev": false,
+    "isDev": true,
     "logLevel": 3,
     "server": {
         "port": 8888
