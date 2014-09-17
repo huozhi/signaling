@@ -136,9 +136,13 @@ io.sockets.on('connection', function (client) {
         client.broadcast.to(client.roomId).emit('syncChart', chartData);
     });
 
+    client.on('signalSyncPreview', function (previewData) {
+        client.broadcast.to(client.roomId).emit('syncPreview', previewData);
+    });
+
     client.on('signalSyncImpress', function (impressData) {
         client.broadcast.to(client.roomId).emit('syncImpress', impressData);
-    });
+    })
 
     /* ========================== end new events ======================= */
 
