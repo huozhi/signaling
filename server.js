@@ -120,15 +120,6 @@ io.sockets.on('connection', function (client) {
     /* deal with sketch point data */
     client.on('sendStroke', function (point) {
         client.broadcast.to(client.roomId).emit('syncStroke', point);
-        // var clientsList = io.sockets.clients(client.room);
-        // clientsList.forEach(function (other) {
-        //     if (other.id != client.id) {
-        //         // console.log('from',client.id,'to',other.id);
-        //         console.log('emit syncStroke event');
-        //         other.emit('syncStroke', point);
-        //     }
-        // });
-
     });
 
     client.on('signalSyncChart', function (chartData) {
@@ -137,10 +128,12 @@ io.sockets.on('connection', function (client) {
     });
 
     client.on('signalSyncPreview', function (previewData) {
+        console.log('server get signalSyncPreview');
         client.broadcast.to(client.roomId).emit('syncPreview', previewData);
     });
 
     client.on('signalSyncImpress', function (impressData) {
+        console.log('server got your daibi impress');
         client.broadcast.to(client.roomId).emit('syncImpress', impressData);
     })
 
