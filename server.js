@@ -135,6 +135,10 @@ io.sockets.on('connection', function (client) {
     client.on('signalSyncImpress', function (impressData) {
         console.log('server got your daibi impress');
         client.broadcast.to(client.roomId).emit('syncImpress', impressData);
+    });
+
+    client.on('sendOutlineText', function (outlineText) {
+        client.broadcast.to(client.roomId).emit('syncOutlineText', sendOutlineText);
     })
 
     /* ========================== end new events ======================= */
